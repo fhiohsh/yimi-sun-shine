@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.GoodsMapper">
+
+
+    <insert id="insertGoods" useGeneratedKeys="true" keyProperty="id">
+        insert into goods (type_id, name, price, num, description, image, details, status, create_time, update_time)
+        VALUES (#{typeId},#{name},#{price},#{num},#{description},#{image}
+        ,#{details},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <update id="updateGoods" parameterType="Goods">
+        update goods
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="typeId != null">type_id = #{typeId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="num != null">num = #{num},</if>
+            <if test="details != null">details = #{details},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="pageGoodsQuery" resultType="com.sky.vo.GoodsVo">
+        select g.* , g.description as shortDesc,c.style_name as categoryName
+        from goods g
+        left join goods_category_style c on c.id = g.type_id
+       <where>
+           <if test="status!= null">
+               and g.status = #{status}
+           </if>
+           <if test="name != null and name!= ''">
+               and g.name like concat('%',#{name},'%')
+           </if>
+           <if test="categoryId != null and categoryId!= ''">
+               and g.type_id = #{categoryId}
+           </if>
+       </where>
+        order by g.create_time desc
+    </select>
+
+    <select id="goodsListQuery" resultType="com.sky.vo.GoodsVo">
+        select g.* , g.description as shortDesc,c.style_name as categoryName
+        from goods g
+        left join goods_category_style c on c.id = g.type_id
+        <where>
+            <if test="status!= null">
+                and g.status = 1
+            </if>
+            <if test="name != null and name!= ''">
+                and g.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null and categoryId!= ''">
+                and g.type_id = #{categoryId}
+            </if>
+        </where>
+        order by g.create_time desc
+    </select>
+
+    <select id="goodsListRandom" resultType="com.sky.vo.GoodsVo">
+        SELECT t.* FROM (
+        SELECT g.*, g.description as shortDesc,c.style_name as categoryName
+        FROM goods g
+        LEFT JOIN goods_category_style c ON c.id = g.type_id
+        <where>
+            <if test="status!= null">
+                AND g.status = 1
+            </if>
+        </where>
+        ORDER BY RAND()
+        ) AS t LIMIT 4;
+    </select>
+
+
+</mapper>

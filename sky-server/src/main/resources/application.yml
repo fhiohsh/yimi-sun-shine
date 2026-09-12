@@ -1,0 +1,84 @@
+server:
+  port: 8099
+  tomcat:
+    threads:
+      max: 2000
+    max-connections: 10000
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      driver-class-name: ${sky.datasource.driver-class-name}
+      url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${sky.datasource.username}
+      password: ${sky.datasource.password}
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 1800000
+    password: 123456
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: joey
+    password: 123456
+    virtual-host: /
+    publisher-confirm-type: correlated #开启 生产者确认机制，并设置confirm类型
+    publisher-returns: true # 开启publisher return机制
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+#allowMultiQueries=true 批量操作
+mybatis-plus:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.sky.entity
+  configuration:
+    map-underscore-to-camel-case: true  #开启驼峰命名
+
+logging:
+  level:
+    root: info
+#    com:
+#      sky:
+#        mapper: debug
+#        service: debug
+#        controller: info
+#        task: info
+
+sky:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: mask
+    # 设置jwt过期时间
+    admin-ttl: 7200000 #  7200000=2h  5min 300000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: Token
+    user-secret-key: joey
+    user-ttl: 7200000 # 1小时
+    user-token-name: authentication
+  alioss:
+    endpoint: ${sky.alioss.endpoint}
+    access-key-id: ${sky.alioss.access-id}
+    access-key-secret: ${sky.alioss.access-key-secret}
+    bucket-name: ${sky.alioss.bukect-name}
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
+  shop:
+    address: 北京市海淀区上地十街10号
+  baidu:
+    ak: your-ak
+system:
+  user:
+    authkey: 2cea9d849b353af6a5f777326239572b
+    time: 10

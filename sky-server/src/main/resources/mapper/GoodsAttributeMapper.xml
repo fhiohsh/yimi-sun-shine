@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.GoodsAttributeMapper">
+
+
+    <insert id="insertAttrBatch">
+        insert into goods_attributes (goods_id, name, param) values
+        <foreach collection="goodsAttributesList" item="ga" separator=",">
+            (#{ga.goodsId},#{ga.name},#{ga.param})
+        </foreach>
+    </insert>
+</mapper>
