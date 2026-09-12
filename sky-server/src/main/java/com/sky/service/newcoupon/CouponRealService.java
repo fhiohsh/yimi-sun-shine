@@ -98,7 +98,7 @@ public class CouponRealService {
         return true;
     }
 
-    //领取优惠券
+    //app 用戶领取优惠券
     @Transactional
     public void userClaimCoupon(List<Integer> couponIds) {
         int userId = BaseContext.getCurrentId().intValue();

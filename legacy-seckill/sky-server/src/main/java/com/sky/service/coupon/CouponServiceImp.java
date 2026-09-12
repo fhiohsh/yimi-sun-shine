@@ -165,7 +165,7 @@ public class CouponServiceImp implements CouponService {
                     //获取当前库存数量
                     Integer totalNUm = (Integer) redisUtil.get("mall_coupon_stock:" + request.getCouponActivityID().toString());
                     HashMap<String, Object> couponMap = new HashMap<>();
-                    couponMap.put("stock",totalNUm);
+                    couponMap.put("stock",totalNUm);// Redis 当前库存 stock 放进 MQ：
                     couponMap.put("couponInfo",request);
                     couponMap.put("coupon",coupon);
                     //mq异步更新 + 确认机制

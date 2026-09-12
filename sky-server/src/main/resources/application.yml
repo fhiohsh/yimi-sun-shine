@@ -26,14 +26,6 @@ spring:
     database: 0
     timeout: 1800000
     password: 123456
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: joey
-    password: 123456
-    virtual-host: /
-    publisher-confirm-type: correlated #开启 生产者确认机制，并设置confirm类型
-    publisher-returns: true # 开启publisher return机制
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 

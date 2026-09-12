@@ -96,13 +96,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        <!--        rabbitmq  -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-            <version>2.7.3</version>
-        </dependency>
-
         <!--       spring-cache缓存  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -113,19 +106,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>31.1-jre</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.15.6</version>
-            <!--    排除actuator 防止与swagger不兼容        -->
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-boot-starter-actuator</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
